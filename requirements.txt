@@ -1,0 +1,9 @@
+pytest
+pylint
+jupyter
+pytest-cov
+nbval
+click
+flask
+requests
+ipython
