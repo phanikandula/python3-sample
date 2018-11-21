@@ -3,10 +3,13 @@ from abc import ABC, abstractmethod
 from typing import List
 
 
+class Note:
+    pass
+
+
 class ChromaticScale(ABC):
     scale = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
 
-    @abstractmethod
     def interval(self) -> List[int]:
         return [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
@@ -14,7 +17,6 @@ class ChromaticScale(ABC):
     def valid_key(k: str):
         assert k in ChromaticScale.scale
 
-    @abstractmethod
     def key(self, root: str) -> List[str]:
         ChromaticScale.valid_key(root)
         index = ChromaticScale.scale.index(root)
@@ -37,3 +39,45 @@ class MajorScale(ChromaticScale):
 
     def interval(self) -> List[int]:
         return [2, 2, 1, 2, 2, 2, 1]
+
+
+class MajorPentatonicScale(MajorScale):
+
+    def key(self, root: str) -> List[str]:
+        major_scale = super(MajorPentatonicScale, self).key(root)
+        result = []
+        for step in self.pattern():
+            result.append(major_scale[step-1])
+        return result
+
+    def pattern(self) -> List[int]:
+        return [1, 2, 3, 5, 6]
+
+
+class MinorScale(ChromaticScale):
+
+    def key(self, root: str) -> List[str]:
+        chromatic_scale = super(MinorScale, self).key(root)
+        chromatic_scale.append(root)
+        result = [root]
+        index = 0
+        for step in self.interval():
+            index += step
+            result.append(chromatic_scale[index])
+        return result
+
+    def interval(self) -> List[int]:
+        return [2, 1, 2, 2, 1, 2, 2]
+
+
+class MinorPentatonicScale(MinorScale):
+
+    def key(self, root: str) -> List[str]:
+        major_scale = super(MinorPentatonicScale, self).key(root)
+        result = []
+        for step in self.pattern():
+            result.append(major_scale[step-1])
+        return result
+
+    def pattern(self) -> List[int]:
+        return [1, 3, 4, 5, 7]
