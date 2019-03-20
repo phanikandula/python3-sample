@@ -1,5 +1,5 @@
 import collections
-from abc import ABC, abstractmethod
+from abc import ABC
 from typing import List
 
 
