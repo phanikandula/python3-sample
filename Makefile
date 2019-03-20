@@ -4,7 +4,6 @@ install:
 
 test:
 	python -m pytest -vv --cov=mymusiclib tests/*.py
-	python -m pytest --nbval *.ipynb
 
 
 lint:
