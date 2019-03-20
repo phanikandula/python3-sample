@@ -1,6 +1,7 @@
 import collections
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import List
+
 
 
 class Note:
@@ -53,6 +54,7 @@ class MajorPentatonicScale(MajorScale):
     def pattern(self) -> List[int]:
         return [1, 2, 3, 5, 6]
 
+xyz
 
 class MinorScale(ChromaticScale):
 
